@@ -6,11 +6,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ParserServiceImpl implements ParserService {
+    private static final String SEPARATOR = ",";
+
     @Override
     public List<FruitTransaction> parse(List<String> data) {
         List<FruitTransaction> transactions = new ArrayList<>();
         for (int i = 1; i < data.size(); i++) {
-            String[] parts = data.get(i).split(",");
+            String[] parts = data.get(i).split(SEPARATOR);
             FruitTransaction.Operation operation = FruitTransaction.Operation.fromCode(parts[0]);
             transactions.add(new FruitTransaction(operation, parts[1], Integer.parseInt(parts[2])));
         }

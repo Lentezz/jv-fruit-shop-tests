@@ -23,13 +23,15 @@ import java.util.List;
 import java.util.Map;
 
 public class Main {
+    private static final String OUTPUT_PATH = "src/main/resources/finalReport.csv";
+    private static final String INPUT_PATH = "src/main/resources/reportToRead.csv";
+
     public static void main(String[] args) {
-        String inputPath = "src/main/resources/reportToRead.csv";
 
         ReaderService reader = new CsvReaderServiceImpl();
         ParserService parser = new ParserServiceImpl();
 
-        List<String> raw = reader.readFromFile(inputPath);
+        List<String> raw = reader.readFromFile(INPUT_PATH);
 
         Map<FruitTransaction.Operation, OperationHandler> handlers = new HashMap<>();
         handlers.put(FruitTransaction.Operation.BALANCE, new BalanceHandler());
@@ -45,8 +47,7 @@ public class Main {
         ReportService reporter = new ReportServiceImpl();
         String report = reporter.generateReport();
 
-        String outputPath = "src/main/resources/finalReport.csv";
         WriterService writer = new CsvWriterServiceImpl();
-        writer.writeToFile(outputPath, report);
+        writer.writeToFile(OUTPUT_PATH, report);
     }
 }

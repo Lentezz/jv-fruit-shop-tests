@@ -1,28 +1,6 @@
 package core.basesyntax.model;
 
 public class FruitTransaction {
-    public enum Operation {
-        BALANCE("b"),
-        SUPPLY("s"),
-        PURCHASE("p"),
-        RETURN("r");
-
-        private final String code;
-
-        Operation(String code) {
-            this.code = code;
-        }
-
-        public static Operation fromCode(String code) {
-            for (Operation op : Operation.values()) {
-                if (op.code.equals(code)) {
-                    return op;
-                }
-            }
-            throw new IllegalArgumentException("Invalid operation code: " + code);
-        }
-    }
-
     private final Operation operation;
     private final String fruit;
     private final int quantity;
@@ -43,5 +21,27 @@ public class FruitTransaction {
 
     public int getQuantity() {
         return quantity;
+    }
+
+    public enum Operation {
+        BALANCE("b"),
+        SUPPLY("s"),
+        PURCHASE("p"),
+        RETURN("r");
+
+        private final String code;
+
+        Operation(String code) {
+            this.code = code;
+        }
+
+        public static Operation fromCode(String code) {
+            for (Operation op : Operation.values()) {
+                if (op.code.equals(code)) {
+                    return op;
+                }
+            }
+            throw new IllegalArgumentException("Invalid operation code: " + code);
+        }
     }
 }
