@@ -1,25 +1,27 @@
 package core.basesyntax.model;
 
-import org.junit.jupiter.api.Assertions;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import org.junit.jupiter.api.Test;
 
 public class FruitTransactionTest {
 
     @Test
     public void fromCode_shouldReturnCorrectOperation() {
-        Assertions.assertEquals(FruitTransaction.Operation.RETURN,
+        assertEquals(FruitTransaction.Operation.RETURN,
                 FruitTransaction.Operation.fromCode("r"));
-        Assertions.assertEquals(FruitTransaction.Operation.SUPPLY,
+        assertEquals(FruitTransaction.Operation.SUPPLY,
                 FruitTransaction.Operation.fromCode("s"));
-        Assertions.assertEquals(FruitTransaction.Operation.PURCHASE,
+        assertEquals(FruitTransaction.Operation.PURCHASE,
                 FruitTransaction.Operation.fromCode("p"));
-        Assertions.assertEquals(FruitTransaction.Operation.BALANCE,
+        assertEquals(FruitTransaction.Operation.BALANCE,
                 FruitTransaction.Operation.fromCode("b"));
     }
 
     @Test
     public void fromCode_shouldThrowExceptionForInvalidCode() {
-        Assertions.assertThrows(IllegalArgumentException.class,
+        assertThrows(IllegalArgumentException.class,
                 () -> FruitTransaction.Operation.fromCode("x"));
     }
 }

@@ -1,5 +1,8 @@
 package core.basesyntax.service.impl;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import core.basesyntax.service.ReaderService;
 import java.io.File;
 import java.io.IOException;
@@ -8,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -35,19 +37,19 @@ class CsvReaderServiceImplTest {
         generateCsvFile();
         List<String> list = readerService.readFromFile(filePath);
         System.out.println(list);
-        Assertions.assertEquals(fruitsInfo, list);
+        assertEquals(fruitsInfo, list);
     }
 
     @Test
     public void readerServiceShouldCorrectReadFromEmptyFile() {
-        Assertions.assertEquals(fruitsInfo, readerService.readFromFile(filePath));
+        assertEquals(fruitsInfo, readerService.readFromFile(filePath));
     }
 
     @Test
     public void readerServiceShouldThrowExceptionWhenFileNotExist() {
-        Exception exception = Assertions.assertThrows(RuntimeException.class,
+        Exception exception = assertThrows(RuntimeException.class,
                 () -> readerService.readFromFile("FILE_PATH"));
-        Assertions.assertEquals(exception.getMessage(), "Failed to read file: " + "FILE_PATH");
+        assertEquals(exception.getMessage(), "Failed to read file: " + "FILE_PATH");
     }
 
     @AfterEach

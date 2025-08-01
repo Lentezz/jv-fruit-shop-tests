@@ -1,11 +1,12 @@
 package core.basesyntax.handler.impl;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import core.basesyntax.db.Storage;
 import core.basesyntax.handler.OperationHandler;
 import core.basesyntax.model.FruitTransaction;
-import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class BalanceHandlerTest {
@@ -16,11 +17,6 @@ public class BalanceHandlerTest {
         balanceHandler = new BalanceHandler();
     }
 
-    @BeforeEach
-    void init() {
-        Storage.clear();
-    }
-
     @Test
     public void apply_shouldSetNewBalanceForExistingFruit() {
         FruitTransaction fruitTransaction = new FruitTransaction(
@@ -28,7 +24,7 @@ public class BalanceHandlerTest {
         Storage.updateFruit("Banana", 55);
         balanceHandler.apply(fruitTransaction);
         int actual = Storage.getFruitQuantity(fruitTransaction.getFruit());
-        Assertions.assertEquals(44, actual);
+        assertEquals(44, actual);
     }
 
     @Test
@@ -36,7 +32,12 @@ public class BalanceHandlerTest {
         FruitTransaction fruitTransaction = new FruitTransaction(
                 FruitTransaction.Operation.BALANCE, "Apple", 2);
         balanceHandler.apply(fruitTransaction);
-        Assertions.assertEquals(2, Storage
+        assertEquals(2, Storage
                 .getFruitQuantity(fruitTransaction.getFruit()));
+    }
+
+    @AfterEach
+    void tearDown() {
+        Storage.clear();
     }
 }
