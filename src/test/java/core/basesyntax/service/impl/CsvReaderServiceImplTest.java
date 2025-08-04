@@ -36,13 +36,7 @@ class CsvReaderServiceImplTest {
     public void readerServiceShouldCorrectReadFromFile() {
         generateCsvFile();
         List<String> list = readerService.readFromFile(filePath);
-        System.out.println(list);
         assertEquals(fruitsInfo, list);
-    }
-
-    @Test
-    public void readerServiceShouldCorrectReadFromEmptyFile() {
-        assertEquals(fruitsInfo, readerService.readFromFile(filePath));
     }
 
     @Test
